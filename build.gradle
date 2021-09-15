@@ -1,0 +1,48 @@
+plugins {
+    id 'java-library'
+}
+
+jar {
+	from {
+		configurations.compile.collect {
+			it.isDirectory() ? it : zipTree(it)
+		}
+	}
+}
+
+apply plugin: 'java'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+archivesBaseName = 'simple-user-provider'
+
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+	
+	implementation group: 'org.keycloak', name: 'keycloak-server-spi', version: '15.0.2'
+	
+	implementation group: 'org.keycloak', name: 'keycloak-core', version: '15.0.2'	
+	
+	compile group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
+	annotationProcessor 'org.projectlombok:lombok:1.18.20'
+	
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.31'
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.31'
+    
+    compile group: 'org.mybatis', name: 'mybatis', version: '3.5.7'
+    
+	compile group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '21.3.0.0'
+    
+    testImplementation 'junit:junit:4.12'
+}
+
+sourceSets {
+    main.java.srcDir "src/main/java"
+    main.resources.srcDir "src/main/resources"
+}
+
+

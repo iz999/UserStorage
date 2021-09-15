@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="users">
+	    
+    <select id="selectAllUsers" resultType="HashMap">		    
+		SELECT
+			/* required */
+		    A.USER_ID as "USER_ID",
+		    A.EMAIL as "EMAIL",
+		    A.FIRSTNAME AS "FIRST_NAME",
+		    A.LASTNAME as "LAST_NAME",
+		    
+		    /* attribute */
+		    A.GROUP_CD AS "GROUP_CD",
+		    A.GROUP_DETAIL_CD AS "GROUP_DETAIL_CD"
+		FROM
+		    TBL_USERS A
+    </select>
+    
+    <select id="validatePwd" resultType="String" parameterType="HashMap">		    
+		SELECT 
+		    COUNT(A.USER_ID) AS VALID_RST
+		FROM
+		    TBL_USERS A
+		WHERE
+		    A.USER_ID = #{userId}
+		    AND A.PWD = #{pwd}
+    </select>
+</mapper>
